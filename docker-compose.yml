@@ -1,8 +1,8 @@
-version: '2'
+version: "2"
 
 services:
   orders:
-    image: weaveworksdemos/orders
+    image: codelab/orders
     hostname: orders
     restart: always
     cap_drop:
@@ -14,11 +14,10 @@ services:
       - /tmp:rw,noexec,nosuid
     environment:
       - reschedule=on-node-failure
-      - ZIPKIN=zipkin
     ports:
       - "8082:80"
   orders-db:
-    image: mongo
+    image: mangoraft/mongodb-arm
     hostname: orders-db
     restart: always
     cap_drop:
@@ -27,25 +26,8 @@ services:
       - CHOWN
       - SETGID
       - SETUID
-    read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid
     environment:
       - reschedule=on-node-failure
-  zipkin:
-    image: openzipkin/zipkin 
-    hostname: zipkin
-    restart: always
-    cap_drop:
-      - all
-    cap_add:
-      - CHOWN
-      - SETGID
-      - SETUID
-    read_only: true
-    tmpfs:
-      - /tmp:rw,noexec,nosuid
-    environment:
-      - reschedule=on-node-failure
-    ports:
-      - "9411:9411"
+      - AUTH=no
