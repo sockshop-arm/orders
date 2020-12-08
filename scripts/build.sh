@@ -10,7 +10,7 @@ DOCKER_CMD=docker
 
 CODE_DIR=$(cd $SCRIPT_DIR/..; pwd)
 echo $CODE_DIR
-$DOCKER_CMD run --rm -v $HOME/.m2:/root/.m2 -v $CODE_DIR:/usr/src/mymaven -w /usr/src/mymaven paperinik/rpi-maven clean install
+$DOCKER_CMD run --rm -v $HOME/.m2:/root/.m2 -v $CODE_DIR:/usr/src/mymaven -w /usr/src/mymaven paperinik/rpi-maven install -DskipTests
 cp -r $CODE_DIR/docker $CODE_DIR/target/docker/
 cp -r $CODE_DIR/target/*.jar $CODE_DIR/target/docker/${IMAGE}
 
